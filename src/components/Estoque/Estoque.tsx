@@ -1,61 +1,52 @@
+import { ButtonArea, EstoqueFood } from "./style";
+import { ButtonEstoque } from "../buttonEstoque/ButtonEstoque";
 import { useState } from "react";
-import { ButtonFood } from "../button/button";
-import { EstoqueFood } from "./style";
 
-const estoqueProducts = [
-    "coração",
-    "carne",
-    "queijo",
-    "linguiça"
-]
+interface EstoqueInputProps {
+    value: number;
+}
 
-export function Estoque() {
+export function Estoque(props: EstoqueInputProps) {
 
-    const [quantity, setQuantity] = useState(0);
+    const [value, setValue] = useState('');
 
-    const addQuantity = () => {
-        setQuantity(quantity + 1);
-      };
-    
-      const excludeQuantity = () => {
-        if (quantity > 0) {
-          setQuantity(quantity - 1);
-        }
-      };
-    
+    function captureValue(event: React.ChangeEvent<HTMLInputElement>) {
+        setValue(event.target.value);
+        if(event.target.name == "coração") {
+            console.log('ok coração')
+        } else (
+            console.log('not at all')
+        )
+        console.log(value)
+    }
+
 
     return(
         <>
             <h1>Adicionar ao estoque</h1>
             <EstoqueFood>
                 <div>
-                    {estoqueProducts.map((product, index) => (
-                        <p key={index}>Espetinho de {product}</p>
-                    ))}
+                  <h3>Coração</h3>
+                  <h3>Carne</h3>
+                  <h3>Queijo</h3>
+                  <h3>Linguiça</h3>
                 </div>
                 <div>
-                {estoqueProducts.map((product, index) => (
-                    <ButtonFood
-                    key={index}
-                    typeProduct={product}
-                    number={quantity}  // Passa a quantidade para o ButtonFood
-                    onAddQuantity={addQuantity}  // Passa a função para adicionar quantidade
-                    onExcludeQuantity={excludeQuantity}  // Passa a função para excluir quantidade
-                    />
-                ))}
+                  <input type="number" placeholder="Qtd." name="coração" onChange={captureValue}></input>
+                  <input type="number" placeholder="Qtd." name="carne" onChange={captureValue}></input>
+                  <input type="number" placeholder="Qtd." name="queijo" onChange={captureValue}></input>
+                  <input type="number" placeholder="Qtd." name="linguiça" onChange={captureValue}></input>
                 </div>
+
+                
             </EstoqueFood>
+            <ButtonArea>
+                <ButtonEstoque textButton="Adicionar" valueNumber={value}></ButtonEstoque>
+            </ButtonArea>
             <h1>Quantidade</h1>
             <EstoqueFood>
                 <div>
-                {estoqueProducts.map((product, index) => (
-                    <p key={index}>Espetinho de {product}</p>
-                ))}
-                </div>
-                <div>
-                {estoqueProducts.map((product, index) => (
-                    <span key={index}>{quantity}</span>
-                ))}
+                    <span>{value}</span>
                 </div>
             </EstoqueFood>
         </>

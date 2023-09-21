@@ -3,6 +3,9 @@ import { useState } from "react";
 
 interface ButtonFoodProps {
     typeProduct: string;
+    numberFood?: number;
+    onAddQuantity?: () => void; 
+    onExcludeQuantity?: () => void
 }
 
 export function ButtonFood({typeProduct} : ButtonFoodProps) {
